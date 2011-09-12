@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.version     = Omniturize::VERSION
   s.authors     = ["eLafo"]
   s.email       = ["javierlafora@gmail.com"]
-  s.homepage    = ""
-  s.summary     = %q{Gem for integrating omniture into your rails app}
-  s.description = %q{Gem for integrating omniture into your rails app}
+  s.homepage    = "https://github.com/eLafo/omniturize"
+  s.summary     = %q{This gem integrates Omniture SiteCatalyst into your web app}
+  s.description = %q{This gem integrates Omniture SiteCatalyst into your web app. You can specify vars, events and custom javascript for every action of a controller. This gem is proudly based on the omniture_client gem, from which it takes much code and ideas}
 
   s.rubyforge_project = "omniturize"
 
