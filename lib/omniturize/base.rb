@@ -13,7 +13,7 @@ module Omniturize
 
 
     class << self
-      attr_accessor :meta_vars, :js_events, :js_snippets
+      attr_accessor :meta_vars, :meta_js_events, :meta_js_snippets
       @@controller = nil
 
       def var(name, options={}, &block)
