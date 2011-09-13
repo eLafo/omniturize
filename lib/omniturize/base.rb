@@ -60,7 +60,7 @@ module Omniturize
     end
 
     def vars(options = {})
-      meta_collection_to_values(self.class.meta_vars.uniq_by(:name), options[:action])
+      meta_collection_to_values(self.class.meta_vars, options[:action]).uniq_by(:name)
     end
     
     def js_events(options = {})
