@@ -21,7 +21,7 @@ module Omniturize
 
         @reporter ||=  begin
           options[:controller].present? ? "#{options[:controller].classify}Reporter".constantize.new(self) :
-                                          "#{self.controller_name.capitalize}Reporter".constantize.new(self)
+                                          "#{self.class.name.gsub(/Controller$/, '')}Reporter".constantize.new(self)
         rescue NameError
           BasicReporter.new(self)
         end
