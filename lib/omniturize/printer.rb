@@ -8,9 +8,11 @@ module Omniturize
     end
     
     def js(options = {})
+      html_options = []
+      options[:html_options].each_pair{|k,v| html_options << "#{k}=\"#{v}\""} if options[:html_options].present?
       output = <<-JS
         <script type="text/javascript" language="JavaScript" src="#{Omniturize::js_src}"></script>
-        <script type="text/javascript" language="JavaScript">
+        <script type="text/javascript" language="JavaScript" #{html_options.join(' ')}>
           #{js_vars(options)}
           #{print_js_events(options)}
           #{print_js_snippets(options)}
@@ -42,7 +44,7 @@ module Omniturize
 
     def print_js_events(options = {})
       values = js_events(options).join(',')
-      values.blank? ? nil : "s.events = \"#{values}\""
+      values.blank? ? nil : "s.events=\"#{values}\""
     end
 
     def print_js_snippets(options = {})
