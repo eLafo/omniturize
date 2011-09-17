@@ -36,7 +36,21 @@ module Omniture
 
     def return_var(scope)
       value_procs.map{ |p| scope.instance_eval(&p) }.flatten.uniq.join(delimiter)
-      #scope.instance_eval(&p)
     end
+
+    def passes_filter?(filter)
+      passes_only_filter?(filter) && passes_except_filter?(filter)
+    end
+
+    private
+
+    def passes_only_filter?(filter)
+      only.blank? || only.detect{|x| x.is_a?(Regexp) ? filter.match(x) : filter.to_sym == x.to_sym}.present?
+    end
+
+    def passes_except_filter?(filter)
+      except.blank? || except.detect{|x| x.is_a?(Regexp) ? filter.match(x) : filter.to_sym == x.to_sym}.blank?
+    end
+
   end
 end

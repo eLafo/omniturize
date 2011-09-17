@@ -48,6 +48,20 @@ module Omniturize
         else raise ArgumentError.new('name must be a String or a Regexp')
       end
     end
-    
+
+    def passes_filter?(filter)
+      passes_only_filter?(filter) && passes_except_filter?(filter)
+    end
+
+    private
+
+    def passes_only_filter?(filter)
+      only.blank? || only.detect{|x| x.is_a?(Regexp) ? filter.match(x) : filter.to_sym == x.to_sym}.present?
+    end
+
+    def passes_except_filter?(filter)
+      except.blank? || except.detect{|x| x.is_a?(Regexp) ? filter.match(x) : filter.to_sym == x.to_sym}.blank?
+    end
+
   end
 end

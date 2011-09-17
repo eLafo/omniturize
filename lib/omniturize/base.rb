@@ -38,9 +38,7 @@ module Omniturize
       def filter_collection_for_action(collection, action)
         return collection if action.blank?
         collection.select do |element|
-          (element.only.present? && element.only.include?(action.try(:to_sym))) ||
-          (element.except.present? && !element.except.include?(action.try(:to_sym))) ||
-          (element.only.blank? && element.except.blank?)
+          element.passes_filter?(action)
         end
       end
 
@@ -77,13 +75,21 @@ module Omniturize
       end
     end
 
+    def find_vars(name, options = {})
+      meta_vars_to_vars(self.class.find_meta_vars(name, options))
+    end
+
     def find_var(name, options = {})
-      vars(options[:action]).detect{|x|x.matches_name?(name)}
+      find_vars(name, options).first
+    end
+
+    def find_values(name, options = {})
+      find_vars(name, options).map(&:value)
     end
 
     def meta_vars_to_vars(meta_vars)
       meta_vars.inject([]) do |vars, meta_var|
-        vars << meta_var.value(controller) if meta_var
+        vars << (meta_var.value(controller) if meta_var) rescue nil
         vars
       end
     end
