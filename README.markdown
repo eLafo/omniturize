@@ -8,13 +8,13 @@ This gem depends on [meta_vars](https://github.com/eLafo/meta_vars, "eLafo's met
     gem install omniturize
 
 ## Based on and unaware collaborators
-This is gem is based on [activenetwork's OmnitureClient gem](https://github.com/activenetwork/omniture_client, "activenetwork's OmnitureClient"), which was forked from [acatighera's](https://github.com/acatighera/omniture_client, "acatighera's OmnitureClient").
+This is gem is based on [activenetwork's OmnitureClient gem](https://github.com/activenetwork/omniture_client "activenetwork's OmnitureClient"), which was forked from [acatighera's](https://github.com/acatighera/omniture_client, "acatighera's OmnitureClient").
 
 There is some borrowed code from unawared coders. So thank you to
 
-*   [acatighera](https://github.com/acatighera, "acatighera github homepage")
-*   [activenetwork](https://github.com/activenetwork, "activenetwork github homepage")
-*   [John Nunemaker](http://railstips.org/about, "railstips") for his [ClassLevelInheritableAttributes solution](http://railstips.org/blog/archives/2006/11/18/class-and-instance-variables-in-ruby/, "Class and instance variables in ruby")
+*   [acatighera](https://github.com/acatighera "acatighera github homepage")
+*   [activenetwork](https://github.com/activenetwork "activenetwork github homepage")
+*   [John Nunemaker](http://railstips.org/about "railstips") for his [ClassLevelInheritableAttributes solution](http://railstips.org/blog/archives/2006/11/18/class-and-instance-variables-in-ruby/ "Class and instance variables in ruby")
 
 ## Configuration
 You must configure the Omniture namespace, suite(s), version that you wish to use.
@@ -130,7 +130,8 @@ Somewhere in your view -probably in one of your layouts- you should add the next
 ##More info
 Since this gem has been created for a very specific use, it may be that this documentation is not enough for you. I have tried to keep the most code from the original sources, so you would want to take a look to the code itself or to the original sources where I took the code
 
-* [OmnitureClient gem](https://github.com/acatighera/omniture_client, "acathigera's OmnitureClient")
-* [activenetwork's fork](https://github.com/activenetwork/omniture_client, "activenetwork's OmnitureClient")
+* [OmnitureClient gem](https://github.com/acatighera/omniture_client "acathigera's OmnitureClient")
+* [activenetwork's fork](https://github.com/activenetwork/omniture_client "activenetwork's OmnitureClient")
+* [meta_vars gem](https://github.com/eLafo/meta_vars "eLafo's meta_vars")
 
 ##### Copyright (c) 2011 Javier Lafora, released under MIT license
