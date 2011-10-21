@@ -13,28 +13,30 @@ module Omniturize
       output = <<-JS
         <script type="text/javascript" language="JavaScript" src="#{Omniturize::js_src}"></script>
         <script type="text/javascript" language="JavaScript" #{html_options.join(' ')}>
-          #{js_vars(options)}
-          #{print_js_events(options)}
-          #{print_js_snippets(options)}
+          #{js_vars(options[:action])}
+          #{print_js_events(options[:action])}
+          #{print_js_snippets(options[:action])}
           var s_code=s.t();if(s_code)document.write(s_code)
         </script>
       JS
     end
     
     def query(options = {})
-      vars(options).inject([]) do |query, var|
+      vars(controller).inject([]) do |query, var|
         query << var_to_query(var) if var.value && var.value != ""
         query
       end.join('&')
     end
     
-    def js_vars(options = {})
-      vars(options).inject([]) do |query, var|
-        query << var_to_js(var) if var.value && var.value != ""
+    def js_vars(action)
+      output = (find_meta_vars(action) + find_meta_vars).uniq_by(&:name).map{|x| x.to_var(controller)}.inject([]) do |query, var|
+        query << var_to_js(var) if var.value.present?
         query
-      end.join(";\n") + ';'
+      end.join(";\n")
+
+      output.blank? ? nil : output + ';'
     end
-    
+
     def raw_vars(options = {})
       vars(options).inject([]) do |query, var|
         query << { var.name.to_sym => var.value } if var.value && var.value != ""
@@ -42,13 +44,17 @@ module Omniturize
       end
     end
 
-    def print_js_events(options = {})
-      values = js_events(options).join(',')
-      values.blank? ? nil : "s.events=\"#{values}\""
+    def print_js_events(action)
+      events = (find_meta_events(action) + find_meta_events).uniq_by(&:name).map{|event| event.to_var(controller)}.inject([]) do |values, event|
+        (values << event.value) if event.value.present?
+      end.join(',')
+      events.blank? ? nil : "s.events=\"#{events}\";"
     end
 
-    def print_js_snippets(options = {})
-      js_snippets(options).join("\n")
+    def print_js_snippets(action)
+      (find_meta_js_snippets(action) + find_meta_js_snippets).uniq_by(&:name).map{|snippet| snippet.to_var(controller)}.inject([]) do |snippets, snippet|
+        (snippets << snippet.value) if snippet.value.present?
+      end.join("\n")
     end
     
     private
@@ -58,7 +64,11 @@ module Omniturize
     end
     
     def var_to_js(var)
-      %Q{\t#{Omniturize::var_prefix + '.' if Omniturize::var_prefix}#{var.name}="#{var.value}"} if var
+      %Q{\t#{Omniturize::var_prefix + '.' if Omniturize::var_prefix}#{var_name(var)}="#{var.value}"} if var
+    end
+
+    def var_name(var)
+      Omniturize::aliases && Omniturize::aliases[var.name.to_s] ? Omniturize::aliases[var.name.to_s] : var.name
     end
   end
 end

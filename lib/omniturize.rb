@@ -1,10 +1,7 @@
+require 'meta_vars'
 require "omniturize/version"
-require File.dirname(__FILE__) + '/class_level_inheritable_attributes'
 require File.dirname(__FILE__) + '/omniturize/printer'
 require File.dirname(__FILE__) + '/omniturize/base'
-require File.dirname(__FILE__) + '/omniturize/var'
-require File.dirname(__FILE__) + '/omniturize/meta_js'
-require File.dirname(__FILE__) + '/omniturize/meta_var'
 require 'cgi'
 
 module Omniturize
