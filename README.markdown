@@ -2,7 +2,7 @@
 This gem integrates Omniture SiteCatalyst into your web app.
 
 ## Dependencies
-This gem depends on [meta_vars](https://github.com/eLafo/meta_vars, "eLafo's meta_vars") gem
+This gem depends on [meta_vars](https://github.com/eLafo/meta_vars "eLafo's meta_vars") gem
 
 ## Installation
     gem install omniturize
