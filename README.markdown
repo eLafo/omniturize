@@ -1,5 +1,8 @@
 # Omniturize
-This gem integrates Omniture SiteCatalyst into your web app. 
+This gem integrates Omniture SiteCatalyst into your web app.
+
+## Dependencies
+This gem depends on [meta_vars](https://github.com/eLafo/meta_vars, "eLafo's meta_vars") gem
 
 ## Installation
     gem install omniturize
@@ -65,33 +68,27 @@ You can define a var by giving it a name and defining a block
 	end
 
 
-You can define a var to be present in or excluded from some actions.
+You can define a var to be present only in given actions.
 
 	#This var will be present only in index and new actions
-	var :my_var, :only => [:index, :new] do
+	var :my_var,  'index', 'new' do
 		'value_for_my_var'
 	end
 
-	#this var will be excluded from index, new, create, update and destroy actions
 
-	var :my_var, :except => [:index, :new, :create, :update, :destroy] do
-		params[:id]
-	end
-
-
-If no :only or :excluded options are passed, the defined var will be available in every action.
+If no namespaces are passed, the defined var will be available in every action.
 
 ###Events
-You can define an event the same way you define a var, except that you don't have to give a name for the event
+You can define an event the same way you define a var
 
-	event, :only => [:search] do
+	event :my_event, 'search' do
 		'my_event'
 	end
 
 ###Custom javascript
 You can define custom javascript code the same way you define an event
 
-	js_snippet, :only => [:search] do
+	js_snippet :my_snippet 'search' do
 		's.server = window.location.host;'
 	end
 
