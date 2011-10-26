@@ -8,7 +8,7 @@ module Omniturize
     module ClassMethods
       def omniturize(options = {})
         include InstanceMethods
-        before_filter :set_reporter, options
+        before_filter{|c| c.send(:set_reporter, options.reverse_merge(:reporter => c.class.name.gsub(/Controller$/, '')))}
         attr_accessor :reporter
       end
     end
@@ -18,10 +18,8 @@ module Omniturize
       private
 
       def set_reporter(options = {})
-
         @reporter ||=  begin
-          options[:controller].present? ? "#{options[:controller].classify}Reporter".constantize.new(self) :
-                                          "#{self.class.name.gsub(/Controller$/, '')}Reporter".constantize.new(self)
+          "#{options[:reporter].classify.pluralize}Reporter".constantize.new(self)
         rescue NameError
           BasicReporter.new(self)
         end
